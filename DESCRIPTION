@@ -2,7 +2,14 @@ Package: LGCU
 Title: Implementation of Learning Gamma CUSUM
 Version: 0.1.0
 Authors@R: person("Harold Manuel Madrid-Alvarez", email = "harold.madrid@unisimon.edu.co", role = c("aut", "cre"))
-Description: Functions for process monitoring based on the Gamma distribution and the CUSUM approach.
+Description: Provides functions for process monitoring and control using 
+ CUSUM control charts tailored for Gamma distributions. It includes methods 
+ for estimating distribution parameters, simulating control limits, and 
+ implementing cautious learning schemes to enhance detection performance. 
+ The package supports both upward and downward CUSUM monitoring with 
+ guaranteed performance, leveraging Monte Carlo simulations and adaptive 
+ thresholding. It is useful for quality control applications in industries 
+ where data follows a Gamma distribution.
 Depends: R (>= 4.0.0)
 Imports: MASS, Rcpp, tictoc
 LinkingTo: Rcpp

@@ -1,0 +1,15 @@
+Package: LGCU
+Title: Implementation of Learning Gamma CUSUM
+Version: 0.1.0
+Authors@R: person("Harold Manuel Madrid-Alvarez", email = "harold.madrid@unisimon.edu.co", role = c("aut", "cre"))
+Description: Functions for process monitoring based on the Gamma distribution and the CUSUM approach.
+Depends: R (>= 4.0.0)
+Imports: MASS, Rcpp, tictoc
+LinkingTo: Rcpp
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
+
+

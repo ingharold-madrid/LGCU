@@ -1,4 +1,4 @@
-# CRAN submission LGCU 0.1.0
+# CRAN submission LGCU 0.1.1
 
 ## Test environments
 - Local Windows 11, R 4.4.3
@@ -17,4 +17,6 @@
 - **CUSUM (Cumulative Sum Control Chart)** is a widely used 
   statistical method in Quality Control, and its inclusion in 
   the package description is appropriate.
+  Terms flagged as possible misspellings ("CUSUM", "thresholding", "et al.") 
+  are correct technical or standard Latin terms used in the statistical literature.
 - No other known issues. Ready for review.

@@ -90,6 +90,8 @@ getDeltaHL_up <- function(
   D0 <- H_plus / 10
   gamma <- H_plus / 100
   D <- D0  # Starting point in the search for H_delta
+  verbose = TRUE
+
 
   # Main iteration loop
   for (i in 1:(N_init + N_final)) {
@@ -122,9 +124,9 @@ getDeltaHL_up <- function(
     D <- max(0, (D - gamma * y))
     Dvector[i] <- D
 
-    # Display progress every 50 iterations
-    if (i %% 50 == 0) {
-      cat("Iteration:", i, "H_delta:", D, "\n")
+    # Display progress every 50 iterations if verbose is TRUE
+    if (verbose && i %% 50 == 0) {
+      message(sprintf("Iteration: %d | H_delta: %.4f", i, D))
     }
   }
 

@@ -149,5 +149,7 @@ plot_GICCdown_chart <- function(
   # Second column (CUSUM control values)
   text(1.0, 1.15, sprintf("Guaranteed Control Limit: %.2f", H_minus_c), cex = 1, adj = 0)
   text(1.0, 0.95, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
+
+  message("Execution completed successfully.")
 }
 

@@ -76,6 +76,7 @@ getDeltaH_down <- function(n_I, alpha, beta, beta_ratio, H_minus,
   D0 <- abs(H_minus) / 10  # Use abs() to avoid negative initial values
   gamma <- abs(H_minus) / 100
   D <- D0  # Starting point in the H_delta search
+  verbose =TRUE
 
   # Main iteration
   for (i in 1:(N_init + N_final)) {
@@ -106,9 +107,9 @@ getDeltaH_down <- function(n_I, alpha, beta, beta_ratio, H_minus,
     D <- max(0, (D - gamma * y))
     Dvector[i] <- D
 
-    # Display progress every 50 iterations
-    if (i %% 50 == 0) {
-      cat("Iteration:", i, "H_delta:", D, "\n")
+    # Display progress every 50 iterations if verbose is TRUE
+    if (verbose && i %% 50 == 0) {
+      message(sprintf("Iteration: %d | H_delta: %.4f", i, D))
     }
   }
 

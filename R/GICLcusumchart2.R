@@ -165,4 +165,6 @@ plot_GICCL_chart2 <- function(alpha, beta, beta_ratio_plus, beta_ratio_minus, H_
   text(1.0, 1.00, sprintf("Updated Control Limit (Final): %.2f", H_minus_c_final), cex = 1, adj = 0)
   text(1.0, 0.85, sprintf("k_plus Value: %.4f", k_plus), cex = 1, adj = 0)
   text(1.0, 0.70, sprintf("k_minus Value: %.4f", k_minus), cex = 1, adj = 0)
+
+  message("Execution completed successfully.")
 }

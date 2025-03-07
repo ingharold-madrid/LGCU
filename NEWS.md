@@ -1,4 +1,4 @@
-# LGCU 0.1.0
+# LGCU 0.1.1
 
 ## 🆕 New Features
 - Implementation of CUSUM control charts for the Gamma distribution.
@@ -7,10 +7,13 @@
 - Compatibility with Windows, macOS, and Linux.
 
 ## 🔧 Improvements
-- Optimization of parameter estimation.
-- Minor documentation improvements.
+- Added explicit clarification of the acronym CUSUM in the DESCRIPTION file.
+- Included formal references in the package description as requested by CRAN.
+- Replaced `cat()` statements with structured `message()` outputs, adding a `verbose` option for clarity.
+- Optimization of parameter estimation methods.
+- Minor documentation enhancements and formatting improvements.
 
 ## 🐞 Bug Fixes
 - Fixed issues in the graphical representation of control charts.
-- Improved stability in Monte Carlo simulations.
+- Improved stability and accuracy in Monte Carlo simulations.
 

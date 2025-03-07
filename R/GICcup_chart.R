@@ -144,6 +144,8 @@ plot_GICCup_chart <- function(
   # Second column (CUSUM control values)
   text(1.0, 1.15, sprintf("Guaranteed Control Limit: %.2f", H_plus_c), cex = 1, adj = 0)
   text(1.0, 0.95, sprintf("Value of k_plus: %.4f", k_plus), cex = 1, adj = 0)
+
+  message("Execution completed successfully.")
 }
 
 

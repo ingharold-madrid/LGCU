@@ -147,4 +147,6 @@ plot_GICC_chart2 <- function(
   text(1.0, 1.00, sprintf("Guaranteed Lower Limit: %.2f", H_minus_c), cex = 1, adj = 0)
   text(1.0, 0.85, sprintf("Value of k_plus: %.4f", k_plus), cex = 1, adj = 0)
   text(1.0, 0.70, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
+
+  message("Execution completed successfully.")
 }

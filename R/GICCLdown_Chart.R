@@ -85,6 +85,11 @@ plot_GICCLdown_Chart <- function(alpha, beta, beta_ratio, H_delta, H_minus,
     stop("The 'MASS' package is required but not installed. Use install.packages('MASS') to install it.")
   }
 
+
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
+
+
   # Generate Phase I data if not provided
   if (is.null(faseI)) {
     faseI <- rgamma(n = n_I, shape = alpha, scale = beta)
@@ -140,30 +145,38 @@ plot_GICCLdown_Chart <- function(alpha, beta, beta_ratio, H_delta, H_minus,
 
   H_minus_c_final <- H_minus_c
 
-  # Adjust layout for graph and summary box
-  layout(matrix(c(1,2), nrow = 2), heights = c(2, 1))
+  par(mfrow = c(2,1))
 
   # CUSUM chart with H_minus_c
+  par(mar = c(4, 4, 2, 1))
   ylim <- c(min(c(Cminus, H_minus_c_values), na.rm = TRUE) - 2, 0)
   plot(Cminus, ylim = ylim, type = "l", col = "blue",
        main = "CUSUM Control Chart with Cautious Learning - Downward Detection",
-       xlab = "Observations (Phase II)", ylab = expression(C^"-"),
-       cex.axis = 1.2, cex.lab = 1.2, cex.main = 1.5)
+       xlab = expression(bold("Observations (Phase II)")), ylab = expression(bold(C^"-")),
+       cex.axis = 1.2, cex.lab = 0.9, cex.main = 1.2)
+
   lines(1:N, H_minus_c_values, col = "red", type = "l")
+  legend("topright",
+         legend = c("CUSUM", "Control Limit"),
+         col = c("blue", "red"),
+         lwd = c(2, 2),
+         lty = c(1, 1),
+         cex = 0.9)
 
   # Summary box
-  par(mar = c(2, 2, 2, 2))
+  par(mar = c(1, 2, 1, 2))
   plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
-  rect(0.3, 0.5, 1.7, 1.4, col = "lightgray", border = "black", lwd = 1)
 
-  text(1, 1.35, "Control Chart Summary", cex = 1, font = 2, adj = 0.5)
-  text(0.6, 1.15, sprintf("Initial Control Limit: %.2f", H_minus_c_initial), cex = 1, adj = 0)
-  text(0.6, 0.95, sprintf("Updated Control Limit (Final): %.2f", H_minus_c_final), cex = 1, adj = 0)
-  text(0.6, 0.75, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
+  rect(0.75, 0.6, 1.3, 1.1, col = "lightgray", border = "black", lwd = 1)
 
-  text(1.2, 1.15, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
-  text(1.2, 0.95, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
-  text(1.2, 0.75, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
+  text(1, 1, "Control Chart Summary", cex = 1.2, font = 2, adj = 0.5)
+  text(0.76, 0.9, sprintf("Initial C.L.: %.2f", H_minus_c_initial), cex = 1, adj = 0)
+  text(0.76, 0.8, sprintf("Updated C.L. (Final): %.2f", H_minus_c_final), cex = 1, adj = 0)
+  text(0.76, 0.7, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
+
+  text(1.01, 0.9, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
+  text(1.01, 0.8, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
+  text(1.01, 0.7, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
 
   message("Execution completed successfully.")
 }

@@ -85,6 +85,9 @@ plot_GICCL_chart2 <- function(alpha, beta, beta_ratio_plus, beta_ratio_minus, H_
     stop("The 'MASS' package is required but not installed. Use install.packages('MASS') to install it.")
   }
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
+
   if (is.null(faseI)) {
     faseI <- rgamma(n = n_I, shape = alpha, scale = beta)
   } else {
@@ -133,15 +136,16 @@ plot_GICCL_chart2 <- function(alpha, beta, beta_ratio_plus, beta_ratio_minus, H_
   H_plus_c_final <- H_plus_c
   H_minus_c_final <- H_minus_c
 
-  layout(matrix(c(1,2), nrow = 2), heights = c(7, 3))
-  par(mar = c(4, 4, 4, 2))
+  par(mfrow = c(2,1))
 
+  # Combined chart
+  par(mar = c(4, 4, 2, 1))
   ylim_range <- range(c(Cplus, Cminus, H_plus_c_values, H_minus_c_values))
 
   plot(Cplus, type = "l", col = "blue", ylim = ylim_range,
        main = "CUSUM Control Chart with Cautious Learning",
-       xlab = "Observations (Phase II)", ylab = "CUSUM",
-       cex.main = 1.5, cex.lab = 1, cex.axis = 1,font.lab = 2, las = 1)
+       xlab = expression(bold("Observations (Phase II)")), ylab = expression(bold("CUSUM Statistic")),
+       cex.main = 1.2, cex.lab = 0.9, cex.axis = 1.2,font.lab = 2, las = 1)
 
   lines(Cminus, col = "darkgreen")
   lines(H_plus_c_values, col = "red", lty = 2)
@@ -149,22 +153,22 @@ plot_GICCL_chart2 <- function(alpha, beta, beta_ratio_plus, beta_ratio_minus, H_
 
   legend("topright", legend = c("C+", "C-", "Lower and Upper Limit"),
          col = c("blue", "darkgreen", "red", "red"),
-         lwd = c(2, 2, 2, 2), lty = c(1, 1, 2, 2), cex = 0.9, bg = "white")
+         lwd = c(2, 2, 2, 2), lty = c(1, 1, 1, 1), cex = 0.9, bg = "white")
 
   # Summary box with gray background and border
-  par(mar = c(1, 1, 1, 1))
+  par(mar = c(1, 2, 1, 2))
   plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
-  rect(0.35, 0.6, 1.65, 1.2, col = "lightgray", border = "black", lwd = 1)  # Adjust rectangle size
+  rect(0.75, 0.6, 1.3, 1.1, col = "lightgray", border = "black", lwd = 1)  # Adjust rectangle size
 
-  text(1.0, 1.35, "Control Chart Summary", cex = 1.2, font = 2, adj = 0.5)  # Adjusted title position
-  text(0.6, 1.13, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
-  text(0.6, 1.00, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
-  text(0.6, 0.85, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
+  text(1, 1.05, "Control Chart Summary", cex = 1, font = 2, adj = 0.5)  # Adjusted title position
+  text(0.76, 0.95, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
+  text(0.76, 0.85, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
+  text(0.76, 0.75, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
 
-  text(1.0, 1.13, sprintf("Updated Control Limit (Final): %.2f", H_plus_c_final), cex = 1, adj = 0)
-  text(1.0, 1.00, sprintf("Updated Control Limit (Final): %.2f", H_minus_c_final), cex = 1, adj = 0)
-  text(1.0, 0.85, sprintf("k_plus Value: %.4f", k_plus), cex = 1, adj = 0)
-  text(1.0, 0.70, sprintf("k_minus Value: %.4f", k_minus), cex = 1, adj = 0)
+  text(1.01, 0.95, sprintf("Updated C.L. (Final): %.2f", H_plus_c_final), cex = 1, adj = 0)
+  text(1.01, 0.85, sprintf("Updated C.L. (Final): %.2f", H_minus_c_final), cex = 1, adj = 0)
+  text(1.01, 0.75, sprintf("k_plus Value: %.4f", k_plus), cex = 1, adj = 0)
+  text(1.01, 0.65, sprintf("k_minus Value: %.4f", k_minus), cex = 1, adj = 0)
 
   message("Execution completed successfully.")
 }

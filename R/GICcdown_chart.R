@@ -76,11 +76,14 @@ plot_GICCdown_chart <- function(
     stop("The 'MASS' package is required but not installed. Use install.packages('MASS') to install it.")
   }
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
+
   # Check if Phase I data is provided
   if (is.null(faseI)) {
     faseI <- rgamma(n = n_I, shape = alpha, scale = beta)  # Generate if no data is provided
   } else {
-    muestra_n <- length(faseI)  # Adjust muestra_n if user provides data
+    n_I <- length(faseI)  # Adjust n_I if user provides data
   }
 
   # Parameter estimation in Phase I
@@ -116,39 +119,39 @@ plot_GICCdown_chart <- function(
   }
 
   # Adjust layout to enlarge the chart and provide space for the summary table
-  layout(matrix(c(1,2), nrow = 2), heights = c(2, 1))
+  par(mfrow = c(2,1))
 
   # Plot CUSUM control chart
-  par(mar = c(5, 5, 4, 2))
+  par(mar = c(4, 4, 2, 1))
   ylim <- c(H_minus_c - 3, 0)
 
   plot(Cminus, ylim = ylim, type = "l", col = "blue",
        main = "Gamma CUSUM Control Chart - Downward Detection",
-       xlab = "Observations (Phase II)", ylab = expression(C^"-"),
-       cex.main = 1.5, cex.lab = 1.3, cex.axis = 1.2)
+       xlab = expression(bold("Observations (Phase II)")), ylab = expression(bold(C^"-")),
+       cex.main = 1.2, cex.lab = 0.9, cex.axis = 0.9)
 
-  abline(h = H_minus_c, col = "red", lwd = 2, lty = 2)  # Lower control limit
+  abline(h = H_minus_c, col = "red", lwd = 1, lty = 1)  # Lower control limit
   legend("topright", legend = c("CUSUM", "Control Limit"),
-         col = c("blue", "red"), lwd = c(2, 2), lty = c(1, 2), cex = 1)
+         col = c("blue", "red"), lwd = c(2, 2), lty = c(1, 1), cex = 1)
 
   # Summary table with gray background and border
-  par(mar = c(2, 2, 2, 2))
+  par(mar = c(1, 2, 1, 2))
   plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
 
   # Draw a gray background rectangle (adjusted for more content)
-  rect(0.3, 0.4, 1.7, 1.4, col = "lightgray", border = "black", lwd = 1)
+  rect(0.75, 0.6, 1.3, 1.1, col = "lightgray", border = "black", lwd = 1)
 
   # Title of the summary table
-  text(1.0, 1.35, "Control Chart Summary", cex = 1, font = 2, adj = 0.5)
+  text(1.0, 1, "Control Chart Summary", cex = 1.2, font = 2, adj = 0.5)
 
   # First column (Phase I values)
-  text(0.6, 1.15, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
-  text(0.6, 0.95, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
-  text(0.6, 0.75, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
+  text(0.76, 0.9, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
+  text(0.76, 0.8, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
+  text(0.76, 0.7, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
 
   # Second column (CUSUM control values)
-  text(1.0, 1.15, sprintf("Guaranteed Control Limit: %.2f", H_minus_c), cex = 1, adj = 0)
-  text(1.0, 0.95, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
+  text(1, 0.9, sprintf("Guaranteed Control Limit: %.2f", H_minus_c), cex = 1, adj = 0)
+  text(1, 0.8, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
 
   message("Execution completed successfully.")
 }

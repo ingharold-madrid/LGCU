@@ -1,4 +1,4 @@
-# LGCU 0.1.1
+# LGCU 0.1.2
 
 ## 🆕 New Features
 - Implementation of CUSUM control charts for the Gamma distribution.
@@ -16,4 +16,4 @@
 ## 🐞 Bug Fixes
 - Fixed issues in the graphical representation of control charts.
 - Improved stability and accuracy in Monte Carlo simulations.
-
+- Ensured that `par()` settings are correctly restored using `on.exit()`.

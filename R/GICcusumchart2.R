@@ -75,8 +75,8 @@ plot_GICC_chart2 <- function(
     stop("The 'MASS' package is required but not installed. Use install.packages('MASS') to install it.")
   }
 
-  layout(matrix(c(1,2), nrow = 2), heights = c(7, 3))
-  par(mar = c(4, 4, 4, 2))  # Adjust layout for both graph and summary box
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
 
   # Check if Phase I data is provided
   if (is.null(faseI)) {
@@ -117,13 +117,15 @@ plot_GICC_chart2 <- function(
     Cminus[i] <- min(0, Cminus[i - 1] + (faseII[i] / beta0_est) - k_minus)
   }
 
-  # Combined chart
-  ylim_range <- range(c(Cplus, Cminus, H_plus_c, H_minus_c))
+  par(mfrow = c(2,1))
 
+  # Combined chart
+  par(mar = c(4, 4, 2, 1))
+  ylim_range <- range(c(Cplus, Cminus, H_plus_c, H_minus_c))
   plot(Cplus, type = "l", col = "blue", ylim = ylim_range,
        main = "CUSUM Control Chart for Gamma Distribution with Guaranteed Performance",
-       xlab = "Observations (Phase II)", ylab = "CUSUM Statistic",
-       cex.main = 1.3, cex.lab = 1, cex.axis = 1, font.lab = 2, las = 1)
+       xlab = expression(bold("Observations (Phase II)")), ylab = expression(bold("CUSUM Statistic")),
+       cex.main = 1.2, cex.lab = 0.9, cex.axis = 1.2, font.lab = 2, las = 1)
 
   lines(Cminus, col = "darkgreen")
   abline(h = H_plus_c, col = "red", lwd = 2, lty = 2)
@@ -131,22 +133,24 @@ plot_GICC_chart2 <- function(
 
   legend("topright", legend = c("C+", "C-", "Upper and Lower Limits"),
          col = c("blue", "darkgreen", "red", "red"),
-         lwd = c(2, 2, 2, 2), lty = c(1, 1, 2, 2), cex = 0.9, bg = "white")
+         lwd = c(2, 2, 2, 2), lty = c(1, 1, 1, 1), cex = 0.9, bg = "white")
 
   # Summary box with gray background and border
-  par(mar = c(1, 1, 1, 1))
+  par(mar = c(1, 2, 1, 2))
   plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
-  rect(0.35, 0.6, 1.65, 1.2, col = "lightgray", border = "black", lwd = 1)  # Adjust rectangle size
 
-  text(1.0, 1.35, "Control Chart Summary", cex = 1.2, font = 2, adj = 0.5)  # Title
-  text(0.6, 1.13, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
-  text(0.6, 1.00, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
-  text(0.6, 0.85, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
+  rect(0.75, 0.6, 1.3, 1.1, col = "lightgray", border = "black", lwd = 1)  # Adjust rectangle size
 
-  text(1.0, 1.13, sprintf("Guaranteed Upper Limit: %.2f", H_plus_c), cex = 1, adj = 0)
-  text(1.0, 1.00, sprintf("Guaranteed Lower Limit: %.2f", H_minus_c), cex = 1, adj = 0)
-  text(1.0, 0.85, sprintf("Value of k_plus: %.4f", k_plus), cex = 1, adj = 0)
-  text(1.0, 0.70, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
+  text(1, 1.05, "Control Chart Summary", cex = 1, font = 2, adj = 0.5)  # Title
+
+  text(0.76, 0.95, sprintf("Phase I Sample Size: %d", n_I), cex = 1, adj = 0)
+  text(0.76, 0.85, sprintf("Estimated Alpha: %.2f", alpha0_est), cex = 1, adj = 0)
+  text(0.76, 0.75, sprintf("Estimated Beta: %.2f", beta0_est), cex = 1, adj = 0)
+
+  text(1.01, 0.95, sprintf("Guaranteed Upper Limit: %.2f", H_plus_c), cex = 1, adj = 0)
+  text(1.01, 0.85, sprintf("Guaranteed Lower Limit: %.2f", H_minus_c), cex = 1, adj = 0)
+  text(1.01, 0.75, sprintf("Value of k_plus: %.4f", k_plus), cex = 1, adj = 0)
+  text(1.01, 0.65, sprintf("Value of k_minus: %.4f", k_minus), cex = 1, adj = 0)
 
   message("Execution completed successfully.")
 }

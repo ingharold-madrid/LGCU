@@ -1,4 +1,4 @@
-# CRAN submission LGCU 0.1.1
+# CRAN submission LGCU 0.1.2
 
 ## Test environments
 - Local Windows 11, R 4.4.3

@@ -1,7 +1,9 @@
 Package: LGCU
 Title: Implementation of Learning Gamma CUSUM (Cumulative Sum) Control Charts
-Version: 0.1.3
-Authors@R: person("Harold Manuel Madrid-Alvarez", email = "harold.madrid@unisimon.edu.co", role = c("aut", "cre"))
+Version: 0.1.5
+Authors@R: c(person("Harold Manuel", "Madrid-Alvarez", email = "harold.madrid@unisimon.edu.co", role = c("aut", "cre")),
+  person("Victor Gustavo", "Tercero-Gomez", email = "victor.tercero@tec.mx", role = "aut"),
+  person("Juan Carlos", "Garcia-Diaz", email = "juagardi@eio.upv.es", role = "aut"))
 Description: Implements Cumulative Sum (CUSUM) control charts specifically
  designed for monitoring processes following a Gamma distribution. Provides
  functions to estimate distribution parameters, simulate control limits, and

@@ -1,4 +1,4 @@
-# CRAN submission LGCU 0.1.2
+# CRAN resubmission LGCU 0.1.5
 
 ## Test environments
 - Local Windows 11, R 4.4.3
@@ -7,16 +7,12 @@
 - Ubuntu 22.04 LTS, R 4.4.3
 
 ## R CMD check results
-- Windows, macOS y Ubuntu: **0 errors ✔ | 0 warnings ✔ | 1 note ✖**
-- Pruebas ejecutadas con `devtools::check()` y `rhub::rhub_check()`
+- Windows, macOS, and Ubuntu: **0 errors ✔ | 0 warnings ✔ | 1 note ✖**
+- Tests executed using `devtools::check()` and `rhub::check_for_cran()`
 
-## Comments
-- This is the first submission to CRAN.
-- The **NOTE** detected in CRAN checks refers to the term 
-  **"CUSUM"** in the DESCRIPTION file.
-- **CUSUM (Cumulative Sum Control Chart)** is a widely used 
-  statistical method in Quality Control, and its inclusion in 
-  the package description is appropriate.
-  Terms flagged as possible misspellings ("CUSUM", "thresholding", "et al.") 
-  are correct technical or standard Latin terms used in the statistical literature.
-- No other known issues. Ready for review.
+## Resubmission
+This update (LGCU 0.1.5) includes a minor correction to add missing contributors
+in the `Authors@R` section of `DESCRIPTION`. 
+
+There are no functional changes, and all package functionality remains the same.
+
